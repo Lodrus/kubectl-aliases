@@ -30,65 +30,57 @@ def main():
     # (alias, full, allow_when_oneof, incompatible_with)
     cmds = [('k', 'kubectl', None, None)]
 
-    globs = [('sys', '--namespace=kube-system', None, ['sys'])]
-
     ops = [
         ('a', 'apply --recursive -f', None, None),
-        ('ak', 'apply -k', None, ['sys']),
-        ('k', 'kustomize', None, ['sys']),
+        ('ak', 'apply -k', None, None),
         ('ex', 'exec -i -t', None, None),
         ('lo', 'logs -f', None, None),
         ('lop', 'logs -f -p', None, None),
-        ('p', 'proxy', None, ['sys']),
-        ('pf', 'port-forward', None, ['sys']),
+        ('p', 'proxy', None, None),
+        ('pf', 'port-forward', None, None),
         ('g', 'get', None, None),
-        ('d', 'describe', None, None),
-        ('rm', 'delete', None, None),
-        ('run', 'run --rm --restart=Never --image-pull-policy=IfNotPresent -i -t', None, None),
+        ('des', 'describe', None, None),
+        ('del', 'delete', None, None),
+        ('c', 'config', None, None),
+        ('ccc', 'config current-context', None, None),
+        ('cuc', 'config use-context', None, None),
+        ('cv', 'config view', None, None),
         ]
 
     res = [
-        ('po', 'pods', ['g', 'd', 'rm'], None),
-        ('dep', 'deployment', ['g', 'd', 'rm'], None),
-        ('svc', 'service', ['g', 'd', 'rm'], None),
-        ('ing', 'ingress', ['g', 'd', 'rm'], None),
-        ('cm', 'configmap', ['g', 'd', 'rm'], None),
-        ('sec', 'secret', ['g', 'd', 'rm'], None),
-        ('no', 'nodes', ['g', 'd'], ['sys']),
-        ('ns', 'namespaces', ['g', 'd', 'rm'], ['sys']),
+        ('po', 'pods', ['g', 'des', 'del'], None),
+        ('dep', 'deployment', ['g', 'des', 'del'], None),
+        ('svc', 'service', ['g', 'des', 'del'], None),
+        ('ing', 'ingress', ['g', 'des', 'del'], None),
+        ('cm', 'configmap', ['g', 'des', 'del'], None),
+        ('sec', 'secret', ['g', 'des', 'del'], None),
         ]
     res_types = [r[0] for r in res]
 
     args = [
-        ('oyaml', '-o=yaml', ['g'], ['owide', 'ojson', 'sl']),
-        ('owide', '-o=wide', ['g'], ['oyaml', 'ojson']),
-        ('ojson', '-o=json', ['g'], ['owide', 'oyaml', 'sl']),
-        ('all', '--all-namespaces', ['g', 'd'], ['rm', 'f', 'no', 'sys'
-         ]),
-        ('sl', '--show-labels', ['g'], ['oyaml', 'ojson']
-         + diff(res_types, ['po', 'dep'])),
-        ('all', '--all', ['rm'], None), # caution: reusing the alias
-        ('w', '--watch', ['g'], ['oyaml', 'ojson', 'owide']),
+        ('oy', '-o=yaml', ['g'], ['ow', 'sl']),
+        ('ow', '-o=wide', ['g'], ['oy']),
+        ('sl', '--show-labels', ['g'], ['oy'] + diff(res_types, ['po', 'dep'])),
+        ('w', '--watch', ['g'], ['oy', 'ow']),
         ]
 
     # these accept a value, so they need to be at the end and
     # mutually exclusive within each other.
-    positional_args = [('f', '--recursive -f', ['g', 'd', 'rm'], res_types + ['all'
-                       , 'l', 'sys']), ('l', '-l', ['g', 'd', 'rm'], ['f',
-                       'all']), ('n', '--namespace', ['g', 'd', 'rm',
-                       'lo', 'ex', 'pf'], ['ns', 'no', 'sys', 'all'])]
+    positional_args = [
+        ('f', '--recursive -f', ['g', 'des', 'del'], res_types + [ 'l']),
+        ('l', '-l', ['g', 'des', 'del'], ['f']),
+        ]
 
     # [(part, optional, take_exactly_one)]
     parts = [
         (cmds, False, True),
-        (globs, True, False),
         (ops, True, True),
         (res, True, True),
         (args, True, False),
         (positional_args, True, True),
         ]
 
-    out = gen(parts)
+    out = sorted(gen(parts))
     out = filter(is_valid, out)
 
     # prepare output
@@ -181,6 +173,3 @@ def diff(a, b):
 
 if __name__ == '__main__':
     main()
-
-
-			
