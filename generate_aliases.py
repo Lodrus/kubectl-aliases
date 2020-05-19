@@ -54,6 +54,7 @@ def main():
         ('ing', 'ingress', ['g', 'des', 'del'], None),
         ('cm', 'configmap', ['g', 'des', 'del'], None),
         ('sec', 'secret', ['g', 'des', 'del'], None),
+        ('q', 'quota', ['g', 'des'], None),
         ]
     res_types = [r[0] for r in res]
 
