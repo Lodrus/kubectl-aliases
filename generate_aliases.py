@@ -42,9 +42,6 @@ def main():
         ('des', 'describe', None, None),
         ('del', 'delete', None, None),
         ('c', 'config', None, None),
-        ('ccc', 'config current-context', None, None),
-        ('cuc', 'config use-context', None, None),
-        ('cv', 'config view', None, None),
         ]
 
     res = [
@@ -55,6 +52,10 @@ def main():
         ('cm', 'configmap', ['g', 'des', 'del'], None),
         ('sec', 'secret', ['g', 'des', 'del'], None),
         ('q', 'quota', ['g', 'des'], None),
+        ('np', 'networkpolicy', ['g', 'des'], None),
+        ('cc', 'current-context', ['c'], None),
+        ('uc', 'use-context', ['c'], None),
+        ('v', 'view', ['c'], None),
         ]
     res_types = [r[0] for r in res]
 
