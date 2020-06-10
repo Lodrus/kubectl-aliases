@@ -34,8 +34,7 @@ def main():
         ('a', 'apply --recursive -f', None, None),
         ('ak', 'apply -k', None, None),
         ('ex', 'exec -i -t', None, None),
-        ('lo', 'logs -f', None, None),
-        ('lop', 'logs -f -p', None, None),
+        ('lo', 'logs', None, None),
         ('p', 'proxy', None, None),
         ('pf', 'port-forward', None, None),
         ('g', 'get', None, None),
@@ -64,6 +63,8 @@ def main():
         ('ow', '-o=wide', ['g'], ['oy']),
         ('sl', '--show-labels', ['g'], ['oy'] + diff(res_types, ['po', 'dep'])),
         ('w', '--watch', ['g'], ['oy', 'ow']),
+        ('f', '-f', ['lo'], None),
+        ('p', '-p', ['lo'], None),
         ]
 
     # these accept a value, so they need to be at the end and
