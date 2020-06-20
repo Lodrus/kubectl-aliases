@@ -39,7 +39,7 @@ def main():
         ('pf', 'port-forward', None, None),
         ('g', 'get', None, None),
         ('des', 'describe', None, None),
-        ('del', 'delete', None, None),
+        ('del', 'delete --wait=false', None, None),
         ('c', 'config', None, None),
         ]
 
@@ -63,7 +63,9 @@ def main():
         ('ow', '-o=wide', ['g'], ['oy']),
         ('sl', '--show-labels', ['g'], ['oy'] + diff(res_types, ['po', 'dep'])),
         ('w', '--watch', ['g'], ['oy', 'ow']),
+        ('w', '--wait=true', ['del'], None),
         ('f', '-f', ['lo'], None),
+        ('f', '--force --grace-period=0', ['del'], None),
         ('p', '-p', ['lo'], None),
         ]
 
@@ -84,7 +86,6 @@ def main():
         ]
 
     out = sorted(gen(parts))
-    out = filter(is_valid, out)
 
     # prepare output
     if not sys.stdout.isatty():
@@ -122,7 +123,8 @@ def gen(parts):
         new_out = []
         for segment in combos:
             for stuff in orig:
-                new_out.append(stuff + segment)
+                if (is_valid(stuff + segment)):
+                    new_out.append(stuff + segment)
         out = new_out
     return out
 
