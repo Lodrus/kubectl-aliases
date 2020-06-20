@@ -72,8 +72,7 @@ def main():
     # these accept a value, so they need to be at the end and
     # mutually exclusive within each other.
     positional_args = [
-        ('f', '--recursive -f', ['g', 'des', 'del'], res_types + [ 'l']),
-        ('l', '-l', ['g', 'des', 'del'], ['f']),
+        ('l', '-l', ['g', 'des', 'del'], None),
         ]
 
     # [(part, optional, take_exactly_one)]
