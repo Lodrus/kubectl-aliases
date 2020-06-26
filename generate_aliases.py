@@ -122,7 +122,7 @@ def gen(parts):
         new_out = []
         for segment in combos:
             for stuff in orig:
-                if (is_valid(stuff + segment)):
+                if is_valid(stuff + segment):
                     new_out.append(stuff + segment)
         out = new_out
     return out
