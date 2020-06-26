@@ -52,6 +52,7 @@ def main():
         ('sec', 'secret', ['g', 'des', 'del'], None),
         ('q', 'quota', ['g', 'des'], None),
         ('np', 'networkpolicy', ['g', 'des'], None),
+        ('hr', 'helmrelease', ['g', 'des', 'del'], None),
         ('cc', 'current-context', ['c'], None),
         ('uc', 'use-context', ['c'], None),
         ('v', 'view', ['c'], None),
@@ -64,8 +65,12 @@ def main():
         ('sl', '--show-labels', ['g'], ['oy'] + diff(res_types, ['po', 'dep'])),
         ('w', '--watch', ['g'], ['oy', 'ow']),
         ('w', '--wait=true', ['del'], None),
-        ('f', '-f', ['lo'], None),
         ('f', '--force --grace-period=0', ['del'], None),
+        ('f', '-f', ['lo'], None),
+        ('t', '--tail=20', ['lo'], None),
+        # The gen() function is still not performant enough to handle more args
+        # ('t100', '--tail=100', ['lo'], None),
+        # ('t500', '--tail=500', ['lo'], None),
         ('p', '-p', ['lo'], None),
         ]
 
