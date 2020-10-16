@@ -79,7 +79,7 @@ def main():
     # mutually exclusive within each other.
     positional_args = [
         ('l', '-l', ['g', 'des', 'del'], None),
-        ('g', '| grep', None, None)
+        ('g', '| grep', ['g', 'des'], None),
         ]
 
     # [(part, optional, take_exactly_one)]
