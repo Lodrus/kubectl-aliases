@@ -67,10 +67,11 @@ def main():
         ('w', '--wait=true', ['del'], None),
         ('f', '--force --grace-period=0', ['del'], None),
         ('f', '-f', ['lo'], None),
-        ('t', '--tail=20', ['lo'], None),
+        ('t', '--tail=100', ['lo'], None),
         # The gen() function is still not performant enough to handle more args
-        # ('t100', '--tail=100', ['lo'], None),
-        # ('t500', '--tail=500', ['lo'], None),
+        # ('t0', '--tail=100', ['lo'], None),
+        # ('t10', '--tail=100', ['lo'], None),
+        # ('t1000', '--tail=500', ['lo'], None),
         ('p', '-p', ['lo'], None),
         ]
 
@@ -78,6 +79,7 @@ def main():
     # mutually exclusive within each other.
     positional_args = [
         ('l', '-l', ['g', 'des', 'del'], None),
+        ('g', '| grep', None, None)
         ]
 
     # [(part, optional, take_exactly_one)]
